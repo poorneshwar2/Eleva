@@ -333,7 +333,7 @@ sup { font-size: 9px; }
 
 const S = {
   root: { position: "relative", background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY },
-  bg: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100dvh", background: `linear-gradient(180deg, ${SAGE_SOFT} 0%, ${CANVAS} 20%)`, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
+  bg: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100dvh", background: `linear-gradient(180deg, #cfe5d2 0%, ${SAGE_SOFT} 12%, ${CANVAS} 32%)`, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
   content: { position: "relative", zIndex: 1, padding: "calc(20px + env(safe-area-inset-top)) 18px 36px", maxWidth: 1120, margin: "0 auto" },
 
   nav: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22, flexWrap: "wrap", gap: 12 },
