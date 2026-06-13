@@ -278,10 +278,8 @@ export default function MindsetHub() {
               const done = doneReminders[r.title];
               return (
                 <div key={r.title} style={{ ...S.remCard, background: done ? "#F0F0EC" : r.tint, opacity: done ? 0.55 : 1 }}>
-                  <div style={S.remNum}>{r.n}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ ...S.remTitle, textDecoration: done ? "line-through" : "none" }}>{r.title}</div>
-                    <div style={S.remBody}>{r.body}</div>
+                    <div style={{ ...S.remBody, textDecoration: done ? "line-through" : "none" }}>{r.body}</div>
                   </div>
                   <label style={S.remCheck}>
                     <input type="checkbox" checked={!!done}
@@ -376,7 +374,7 @@ const S = {
   remCard: { display: "flex", gap: 14, alignItems: "flex-start", padding: 16, borderRadius: 16, transition: "all .25s" },
   remNum: { fontSize: 12, fontWeight: 800, color: INK, opacity: 0.5, marginTop: 2 },
   remTitle: { fontWeight: 800, fontSize: 14.5, marginBottom: 4 },
-  remBody: { fontSize: 13, color: "#5a5a55", lineHeight: 1.45 },
+  remBody: { fontSize: 14.5, color: "#3a3a35", lineHeight: 1.5, fontWeight: 500 },
   remCheck: { display: "flex", alignItems: "center" },
 
   igniteBand: { background: INK, color: "#fff", borderRadius: 22, padding: "24px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" },
