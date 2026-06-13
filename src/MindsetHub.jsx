@@ -178,8 +178,6 @@ export default function MindsetHub() {
   const [blast, setBlast] = useState("");
   const [pulsing, setPulsing] = useState(false);
   const [igniteLoading, setIgniteLoading] = useState(false);
-  const [streak, setStreak] = useState(0);
-  const [showedUp, setShowedUp] = useState(false);
   const [doneReminders, setDoneReminders] = useState({});
 
   const [todayReminders] = useState(() =>
@@ -201,7 +199,6 @@ export default function MindsetHub() {
     setTimeout(() => setPulsing(false), 850);
   };
 
-  const showUp = () => { if (!showedUp) { setStreak((s) => s + 1); setShowedUp(true); } };
 
   return (
     <div style={S.root}>
@@ -226,18 +223,6 @@ export default function MindsetHub() {
             </button>
             <span style={S.refreshLabel}>refresh</span>
           </div>
-        </div>
-        <div style={S.heroCard}>
-          <div style={S.heroCardTop}>
-            <span style={S.miniChip}>showing up</span>
-            <span style={{ ...S.miniChip, background: SAGE, color: "#fff" }}>day {streak}</span>
-          </div>
-          <div style={S.heroCardBig}>{streak}</div>
-          <div style={S.heroCardLabel}>days of showing up</div>
-          <button onClick={showUp} disabled={showedUp}
-            style={{ ...S.pillBtn, background: showedUp ? "#E2E2DE" : INK, color: showedUp ? "#8a8a86" : "#fff" }}>
-            {showedUp ? "logged today ✓" : "I showed up today"} {!showedUp && <Arrow size={14} color="#fff" />}
-          </button>
         </div>
       </div>
 
@@ -343,7 +328,7 @@ const S = {
   chip: { background: CARD, border: "1px solid #E0E0DB", borderRadius: 999, padding: "7px 14px", fontSize: 13, fontWeight: 600 },
   sup: { color: SAGE, fontWeight: 800, marginLeft: 1 },
 
-  hero: { display: "grid", gridTemplateColumns: "1.7fr 1fr", gap: 16, marginBottom: 16 },
+  hero: { display: "grid", gridTemplateColumns: "1fr", gap: 16, marginBottom: 16 },
   heroLeft: { background: CARD, borderRadius: 22, padding: "30px 30px 24px" },
   tagTiny: { fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#a6a6a0", fontWeight: 700 },
   headline: { fontFamily: DISPLAY, fontSize: "clamp(30px, 4.4vw, 50px)", lineHeight: 1.06, fontWeight: 600, letterSpacing: -0.5, margin: "14px 0 22px" },
@@ -353,12 +338,6 @@ const S = {
   circleBtn: { width: 44, height: 44, borderRadius: "50%", background: INK, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" },
   refreshLabel: { fontSize: 12, color: "#9a9a95", fontWeight: 600 },
 
-  heroCard: { background: SAGE, color: "#fff", borderRadius: 22, padding: 24, display: "flex", flexDirection: "column" },
-  heroCardTop: { display: "flex", gap: 8, marginBottom: "auto" },
-  miniChip: { background: "rgba(255,255,255,.25)", borderRadius: 999, padding: "5px 11px", fontSize: 12, fontWeight: 600 },
-  heroCardBig: { fontFamily: DISPLAY, fontSize: 76, fontWeight: 600, lineHeight: 1, marginTop: 18 },
-  heroCardLabel: { fontSize: 14, opacity: 0.9, marginBottom: 18 },
-  pillBtn: { border: "none", borderRadius: 999, padding: "12px 18px", fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 },
 
   grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 },
   panel: { background: CARD, borderRadius: 22, padding: "26px 26px 28px" },
