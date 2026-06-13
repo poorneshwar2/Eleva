@@ -1,4 +1,4 @@
-# Mindset Hub
+# Eleva
 
 A personal motivation hub seeded from your "2026 and Beyond" Notion notes.
 Static React + Vite app — no backend, no API keys, free to host.
