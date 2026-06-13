@@ -308,7 +308,7 @@ sup { font-size: 9px; }
 /* ---- Animated background: slow "breathing" blurred blobs ---- */
 /* One shared ~9s breath cycle (≈4.5s inhale, 4.5s exhale), eased like calm breathing. */
 .mh-blob { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform, opacity; animation: breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
-.mh-blob1 { width: 70vw; height: 70vw; background: ${SAGE}; top: -18vw; left: -20vw; transform-origin: center; }
+.mh-blob1 { width: 80vw; height: 80vw; background: ${SAGE}; top: -34vw; left: -24vw; transform-origin: center; }
 .mh-blob2 { width: 65vw; height: 65vw; background: ${BLUE_SOFT}; bottom: -20vw; right: -22vw; animation-delay: -0.6s; }
 .mh-blob3 { width: 55vw; height: 55vw; background: ${CREAM}; top: 38%; left: 30%; animation-delay: 0.3s; }
 @keyframes breathe {
@@ -333,7 +333,7 @@ sup { font-size: 9px; }
 
 const S = {
   root: { position: "relative", background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY },
-  bg: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100dvh", background: CANVAS, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
+  bg: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100dvh", background: `linear-gradient(180deg, ${SAGE_SOFT} 0%, ${CANVAS} 20%)`, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
   content: { position: "relative", zIndex: 1, padding: "calc(20px + env(safe-area-inset-top)) 18px 36px", maxWidth: 1120, margin: "0 auto" },
 
   nav: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22, flexWrap: "wrap", gap: 12 },
