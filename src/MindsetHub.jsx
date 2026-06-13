@@ -82,12 +82,12 @@ const HIGHLIGHT = {
 };
 
 const REMINDERS = [
-  { n: "01", title: "The Process", body: "Don't focus on the marks — focus on the effort. Consistency over intensity.", tint: SAGE_SOFT },
-  { n: "02", title: "Revision Motivation", body: "Understand → practice → active recall. Cheatsheet weekly, 80/20 always.", tint: BLUE_SOFT },
-  { n: "03", title: "Me, Myself I", body: "Anger comes from comparison. Redirect it into one small act of connection.", tint: CREAM },
-  { n: "04", title: "Moving On", body: "Anchor every action to a goal. Curiosity over judgment — learn from others.", tint: SAGE_SOFT },
-  { n: "05", title: "Summer", body: "Get closer to smarter people. Small bold actions outside your comfort zone.", tint: BLUE_SOFT },
-  { n: "06", title: "The Beginning", body: "You're the CEO of your life. Win today. Every action is a vote.", tint: CREAM },
+  { n: "01", title: "The Process", body: "Don't focus on the marks, focus on the effort. Consistency over intensity.", tint: SAGE_SOFT },
+  { n: "02", title: "Revision Motivation", body: "Understand, practice, active recall. Cheatsheet weekly, 80/20 always.", tint: SAGE_SOFT },
+  { n: "03", title: "Me, Myself I", body: "Anger comes from comparison. Redirect it into one small act of connection.", tint: SAGE_SOFT },
+  { n: "04", title: "Moving On", body: "Anchor every action to a goal. Curiosity over judgment, learn from others.", tint: SAGE_SOFT },
+  { n: "05", title: "Summer", body: "Get closer to smarter people. Small bold actions outside your comfort zone.", tint: SAGE_SOFT },
+  { n: "06", title: "The Beginning", body: "You're the CEO of your life. Win today. Every action is a vote.", tint: SAGE_SOFT },
 ];
 
 const MOOD_RESPONSES = {
@@ -178,7 +178,6 @@ export default function MindsetHub() {
   const [blast, setBlast] = useState("");
   const [pulsing, setPulsing] = useState(false);
   const [igniteLoading, setIgniteLoading] = useState(false);
-  const [doneReminders, setDoneReminders] = useState({});
 
   const [todayReminders] = useState(() =>
     [...REMINDERS].sort(() => Math.random() - 0.5).slice(0, 3)
@@ -203,6 +202,14 @@ export default function MindsetHub() {
   return (
     <div style={S.root}>
       <style>{CSS}</style>
+
+      {/* Animated background — slow drifting blurred gradient blobs */}
+      <div style={S.bg} aria-hidden="true">
+        <span className="mh-blob mh-blob1" />
+        <span className="mh-blob mh-blob2" />
+        <span className="mh-blob mh-blob3" />
+      </div>
+      <div style={S.content}>
 
       {/* NAV BAR — Eleva mark (Concept 3: bars in a circle) */}
       <div style={S.nav}>
@@ -259,21 +266,13 @@ export default function MindsetHub() {
             <span style={S.tagTiny}>03 / values</span>
           </div>
           <div style={S.remCol}>
-            {todayReminders.map((r) => {
-              const done = doneReminders[r.title];
-              return (
-                <div key={r.title} style={{ ...S.remCard, background: done ? "#F0F0EC" : r.tint, opacity: done ? 0.55 : 1 }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ ...S.remBody, textDecoration: done ? "line-through" : "none" }}>{r.body}</div>
-                  </div>
-                  <label style={S.remCheck}>
-                    <input type="checkbox" checked={!!done}
-                      onChange={() => setDoneReminders((d) => ({ ...d, [r.title]: !d[r.title] }))}
-                      style={{ accentColor: INK, width: 17, height: 17, cursor: "pointer" }} />
-                  </label>
+            {todayReminders.map((r) => (
+              <div key={r.title} style={{ ...S.remCard, background: r.tint }}>
+                <div style={{ flex: 1 }}>
+                  <div style={S.remBody}>{r.body}</div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -295,6 +294,7 @@ export default function MindsetHub() {
         </div>
       )}
 
+      </div>
     </div>
   );
 }
@@ -304,6 +304,20 @@ const CSS = `
 @keyframes fade { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
 * { box-sizing: border-box; }
 sup { font-size: 9px; }
+
+/* ---- Animated background: slow "breathing" blurred blobs ---- */
+/* One shared ~9s breath cycle (≈4.5s inhale, 4.5s exhale), eased like calm breathing. */
+.mh-blob { position: absolute; border-radius: 50%; filter: blur(75px); will-change: transform, opacity; animation: breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.mh-blob1 { width: 44vw; height: 44vw; background: ${SAGE}; top: -8vw; left: -6vw; transform-origin: center; }
+.mh-blob2 { width: 40vw; height: 40vw; background: ${BLUE_SOFT}; bottom: -10vw; right: -8vw; animation-delay: -0.6s; }
+.mh-blob3 { width: 34vw; height: 34vw; background: ${CREAM}; top: 34%; left: 42%; animation-delay: 0.3s; }
+@keyframes breathe {
+  0%, 100% { transform: scale(0.9); opacity: 0.40; }   /* exhale — settled */
+  50%      { transform: scale(1.18); opacity: 0.62; }  /* inhale — swell */
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-blob { animation: none !important; }
+}
 
 /* ---- Responsive: phones (iPhone 15 Pro ~393px & up) ---- */
 @media (max-width: 760px) {
@@ -318,7 +332,9 @@ sup { font-size: 9px; }
 `;
 
 const S = {
-  root: { background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY, padding: "20px 18px 36px", maxWidth: 1120, margin: "0 auto" },
+  root: { position: "relative", background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY, overflow: "hidden" },
+  bg: { position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
+  content: { position: "relative", zIndex: 1, padding: "20px 18px 36px", maxWidth: 1120, margin: "0 auto" },
 
   nav: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22, flexWrap: "wrap", gap: 12 },
   brand: { fontFamily: DISPLAY, fontWeight: 600, fontSize: 23, letterSpacing: -0.3, display: "flex", alignItems: "center", gap: 8 },
@@ -354,7 +370,6 @@ const S = {
   remNum: { fontSize: 12, fontWeight: 800, color: INK, opacity: 0.5, marginTop: 2 },
   remTitle: { fontWeight: 800, fontSize: 14.5, marginBottom: 4 },
   remBody: { fontSize: 14.5, color: "#3a3a35", lineHeight: 1.5, fontWeight: 500 },
-  remCheck: { display: "flex", alignItems: "center" },
 
   igniteBand: { background: INK, color: "#fff", borderRadius: 22, padding: "24px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" },
   igniteText: { display: "flex", flexDirection: "column", gap: 6 },
