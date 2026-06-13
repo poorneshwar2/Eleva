@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // ============================================================
-// MINDSET HUB — Personal Motivation Hub  (Editorial / light theme)
+// ELEVA — Personal Motivation Hub  (Editorial / light theme)
 // Visual language inspired by Creative Leaders Circle + Cereen:
 //   off-white canvas, sage accent, oversized headlines, pill chips
 //   with superscript counts, card-on-card layout, circular arrow
@@ -25,6 +25,10 @@ const CREAM = "#F2E9DC";
 const INK = "#16181C";
 const CANVAS = "#E9E9E6";
 const CARD = "#FCFCFB";
+
+// Type: Fraunces (display serif) for headlines, Inter for body/UI
+const DISPLAY = "'Fraunces', Georgia, serif";
+const BODY = "'Inter', system-ui, sans-serif";
 
 const SOURCES = [
   "Revision Motivation", "Me, Myself I", "The Process",
@@ -132,6 +136,18 @@ function Arrow({ size = 16, color = INK }) {
   );
 }
 
+// Eleva mark — Concept 3: rising bars inside a circle ("pulse")
+function ElevaMark({ size = 28 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="16" fill={SAGE} />
+      <rect x="9" y="17" width="3.4" height="5" rx="1.2" fill="#fff" opacity="0.6" />
+      <rect x="14.3" y="13" width="3.4" height="9" rx="1.2" fill="#fff" opacity="0.85" />
+      <rect x="19.6" y="9" width="3.4" height="13" rx="1.2" fill="#fff" />
+    </svg>
+  );
+}
+
 function pickFrom(arr, exclude) {
   if (arr.length === 1) return arr[0];
   let v;
@@ -191,14 +207,9 @@ export default function MindsetHub() {
     <div style={S.root}>
       <style>{CSS}</style>
 
-      {/* NAV BAR — pill chips with superscript counts */}
+      {/* NAV BAR — Eleva mark (Concept 3: bars in a circle) */}
       <div style={S.nav}>
-        <div style={S.brand}><span style={S.brandMark}>✸</span> Mindset <span style={S.brandSub}>hub</span></div>
-        <div style={S.navChips}>
-          <span style={S.chip}>Quotes <sup style={S.sup}>{QUOTES.length}</sup></span>
-          <span style={S.chip}>Reminders <sup style={S.sup}>{REMINDERS.length}</sup></span>
-          <span style={S.chip}>Sources <sup style={S.sup}>{SOURCES.length}</sup></span>
-        </div>
+        <div style={S.brand}><ElevaMark /> Eleva</div>
       </div>
 
       {/* HERO — oversized editorial headline + spark card */}
@@ -301,10 +312,6 @@ export default function MindsetHub() {
         </div>
       )}
 
-      <div style={S.footer}>
-        Seeded strictly from your "2026 and Beyond" folder:&nbsp;
-        {SOURCES.map((s, i) => <span key={s} style={S.footChip}>{s}</span>)}
-      </div>
     </div>
   );
 }
@@ -328,10 +335,10 @@ sup { font-size: 9px; }
 `;
 
 const S = {
-  root: { background: CANVAS, minHeight: "100vh", color: INK, fontFamily: "'Inter', system-ui, sans-serif", padding: "20px 18px 36px", maxWidth: 1120, margin: "0 auto" },
+  root: { background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY, padding: "20px 18px 36px", maxWidth: 1120, margin: "0 auto" },
 
   nav: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22, flexWrap: "wrap", gap: 12 },
-  brand: { fontWeight: 800, fontSize: 20, letterSpacing: -0.5, display: "flex", alignItems: "center", gap: 6 },
+  brand: { fontFamily: DISPLAY, fontWeight: 600, fontSize: 23, letterSpacing: -0.3, display: "flex", alignItems: "center", gap: 8 },
   brandMark: { color: SAGE, fontSize: 18 },
   brandSub: { fontSize: 11, color: "#9a9a95", fontWeight: 600, marginLeft: 2 },
   navChips: { display: "flex", gap: 8, flexWrap: "wrap" },
@@ -341,7 +348,7 @@ const S = {
   hero: { display: "grid", gridTemplateColumns: "1.7fr 1fr", gap: 16, marginBottom: 16 },
   heroLeft: { background: CARD, borderRadius: 22, padding: "30px 30px 24px" },
   tagTiny: { fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#a6a6a0", fontWeight: 700 },
-  headline: { fontSize: "clamp(28px, 4.2vw, 46px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: -1.2, margin: "14px 0 22px" },
+  headline: { fontFamily: DISPLAY, fontSize: "clamp(30px, 4.4vw, 50px)", lineHeight: 1.06, fontWeight: 600, letterSpacing: -0.5, margin: "14px 0 22px" },
   mark: { background: CREAM, padding: "0 6px", borderRadius: 4, boxDecorationBreak: "clone", WebkitBoxDecorationBreak: "clone" },
   heroFootRow: { display: "flex", alignItems: "center", gap: 12 },
   sourceChip: { background: SAGE_SOFT, borderRadius: 999, padding: "7px 14px", fontSize: 13, fontWeight: 500 },
@@ -351,14 +358,14 @@ const S = {
   heroCard: { background: SAGE, color: "#fff", borderRadius: 22, padding: 24, display: "flex", flexDirection: "column" },
   heroCardTop: { display: "flex", gap: 8, marginBottom: "auto" },
   miniChip: { background: "rgba(255,255,255,.25)", borderRadius: 999, padding: "5px 11px", fontSize: 12, fontWeight: 600 },
-  heroCardBig: { fontSize: 72, fontWeight: 800, lineHeight: 1, marginTop: 18 },
+  heroCardBig: { fontFamily: DISPLAY, fontSize: 76, fontWeight: 600, lineHeight: 1, marginTop: 18 },
   heroCardLabel: { fontSize: 14, opacity: 0.9, marginBottom: 18 },
   pillBtn: { border: "none", borderRadius: 999, padding: "12px 18px", fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 },
 
   grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 },
   panel: { background: CARD, borderRadius: 22, padding: "26px 26px 28px" },
   panelHead: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 },
-  panelTitle: { fontSize: 26, fontWeight: 800, letterSpacing: -0.8, lineHeight: 1.05, margin: 0 },
+  panelTitle: { fontFamily: DISPLAY, fontSize: 28, fontWeight: 600, letterSpacing: -0.3, lineHeight: 1.05, margin: 0 },
 
   moodRow: { display: "flex", flexWrap: "wrap", gap: 8 },
   moodChip: { display: "flex", alignItems: "center", gap: 6, border: "1.5px solid", borderRadius: 999, padding: "9px 15px", fontSize: 13.5, fontWeight: 600, cursor: "pointer", transition: "all .2s" },
@@ -374,7 +381,7 @@ const S = {
 
   igniteBand: { background: INK, color: "#fff", borderRadius: 22, padding: "24px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" },
   igniteText: { display: "flex", flexDirection: "column", gap: 6 },
-  igniteHeadline: { fontSize: 24, fontWeight: 800, letterSpacing: -0.6 },
+  igniteHeadline: { fontFamily: DISPLAY, fontSize: 26, fontWeight: 600, letterSpacing: -0.3 },
   igniteBtn: { background: SAGE, color: "#fff", border: "none", borderRadius: 999, padding: "16px 32px", fontSize: 18, fontWeight: 800, cursor: "pointer", letterSpacing: 0.3 },
   blastBanner: { marginTop: 12, background: CREAM, borderRadius: 18, padding: "20px 24px", fontSize: 16.5, fontWeight: 600, lineHeight: 1.5 },
 
