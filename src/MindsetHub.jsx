@@ -307,13 +307,13 @@ sup { font-size: 9px; }
 
 /* ---- Animated background: slow "breathing" blurred blobs ---- */
 /* One shared ~9s breath cycle (≈4.5s inhale, 4.5s exhale), eased like calm breathing. */
-.mh-blob { position: absolute; border-radius: 50%; filter: blur(75px); will-change: transform, opacity; animation: breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
-.mh-blob1 { width: 44vw; height: 44vw; background: ${SAGE}; top: -8vw; left: -6vw; transform-origin: center; }
-.mh-blob2 { width: 40vw; height: 40vw; background: ${BLUE_SOFT}; bottom: -10vw; right: -8vw; animation-delay: -0.6s; }
-.mh-blob3 { width: 34vw; height: 34vw; background: ${CREAM}; top: 34%; left: 42%; animation-delay: 0.3s; }
+.mh-blob { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform, opacity; animation: breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.mh-blob1 { width: 70vw; height: 70vw; background: ${SAGE}; top: -18vw; left: -20vw; transform-origin: center; }
+.mh-blob2 { width: 65vw; height: 65vw; background: ${BLUE_SOFT}; bottom: -20vw; right: -22vw; animation-delay: -0.6s; }
+.mh-blob3 { width: 55vw; height: 55vw; background: ${CREAM}; top: 38%; left: 30%; animation-delay: 0.3s; }
 @keyframes breathe {
-  0%, 100% { transform: scale(0.9); opacity: 0.40; }   /* exhale — settled */
-  50%      { transform: scale(1.18); opacity: 0.62; }  /* inhale — swell */
+  0%, 100% { transform: scale(0.92); opacity: 0.34; }
+  50%      { transform: scale(1.14); opacity: 0.52; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mh-blob { animation: none !important; }
@@ -332,9 +332,9 @@ sup { font-size: 9px; }
 `;
 
 const S = {
-  root: { position: "relative", background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY, overflow: "hidden" },
-  bg: { position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
-  content: { position: "relative", zIndex: 1, padding: "20px 18px 36px", maxWidth: 1120, margin: "0 auto" },
+  root: { position: "relative", background: CANVAS, minHeight: "100vh", color: INK, fontFamily: BODY },
+  bg: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100dvh", background: CANVAS, zIndex: 0, overflow: "hidden", pointerEvents: "none" },
+  content: { position: "relative", zIndex: 1, padding: "calc(20px + env(safe-area-inset-top)) 18px 36px", maxWidth: 1120, margin: "0 auto" },
 
   nav: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22, flexWrap: "wrap", gap: 12 },
   brand: { fontFamily: DISPLAY, fontWeight: 600, fontSize: 23, letterSpacing: -0.3, display: "flex", alignItems: "center", gap: 8 },
